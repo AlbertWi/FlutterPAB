@@ -14,16 +14,37 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kBackgoundColor,
-        title :Image.asset(
+        title: Image.asset(
           "assets/logo.png",
           height: 50,
           width: 120,
         ),
         actions: [
-          InkWell(child: Icon(Icons.search,color: Colors.white,))
+          Padding(
+            padding: const EdgeInsets.only(right: 20.0),
+            child: InkWell(
+              onTap: () {},
+              child: const Icon(
+                Icons.notifications,
+                size: 30,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(6),
+            child: Container(
+              color: Colors.blue,
+              height: 27,
+              width: 25,
+            ),
+          ),
+          const SizedBox(
+            width: 20,
+          )
         ],
       ),
-      body: Center(
+      body: const Center(
         child: Text("Hi Im Home Screen"),
       ),
     );

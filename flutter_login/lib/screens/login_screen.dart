@@ -13,7 +13,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +31,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16),
                   child: Image.asset('assets/logo.jpeg'),
-
                 ),
               ),
               //  TODO :2. TextField Email
@@ -39,36 +38,37 @@ class _LoginScreenState extends State<LoginScreen> {
               TextField(
                 controller: _emailController,
                 decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Email'),
+                    border: OutlineInputBorder(), labelText: 'Email'),
               ),
               //  TODO :3. TextField Password
               const SizedBox(height: 16),
               TextField(
                 controller: _passwordController,
                 decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Password'),
-                obscureText : true,
-              ), 
+                    border: OutlineInputBorder(), labelText: 'Password'),
+                obscureText: true,
+              ),
               //  TODO :4. Tombol Login
-              const SizedBox(height: 16,),
-              ElevatedButton(onPressed: () async {
-                String email = _emailController.text;
-                String password = _passwordController.text;
+              const SizedBox(
+                height: 16,
+              ),
+              ElevatedButton(
+                  onPressed: () async {
+                    String email = _emailController.text;
+                    String password = _passwordController.text;
 
-                if (validateLogin(email, password)){
-                  SharedPreferences prefs = await SharedPreferences.getInstance();
-                  await prefs.setBool('isLoggedIn', true);
-                  await prefs.setString('email', email);
-                  Navigator.pushReplacementNamed(context, '/Bottom');
-                }
-                else{
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Invalid Email Or Password')));
-                }
-              } , 
-              child: const Text('Login'))
+                    if (validateLogin(email, password)) {
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      await prefs.setBool('isLoggedIn', true);
+                      await prefs.setString('email', email);
+                      Navigator.pushReplacementNamed(context, '/Bottom');
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text('Invalid Email Or Password')));
+                    }
+                  },
+                  child: const Text('Login'))
             ],
           ),
         ),
@@ -76,15 +76,13 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  bool validateLogin(String email , String password){
-    for(User user in userList){
-      if(user.email == email && user.Password == password){
+  bool validateLogin(String email, String password) {
+    for (User user in userList) {
+      if (user.email == email && user.Password == password) {
         return true;
       }
     }
-    
-    
+
     return false;
   }
-
 }

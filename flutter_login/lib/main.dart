@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/screens/home_screen.dart';
-import 'package:flutter_login/screens/login_screen.dart';
 import 'package:flutter_login/screens/splash_screen.dart';
 import 'package:flutter_login/widgets/bottom_nav_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  bool isLoggedIn = prefs.getBool('isLoggedIn')?? false;
-  runApp(MainApp(isLoggedIn: isLoggedIn,));
+  bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+  runApp(MainApp(
+    isLoggedIn: isLoggedIn,
+  ));
 }
 
-Future initialization(BuildContext? context) async{
-  await Future.delayed(Duration(seconds: 3));
+Future initialization(BuildContext? context) async {
+  await Future.delayed(const Duration(seconds: 3));
 }
 
 class MainApp extends StatelessWidget {
@@ -40,13 +42,13 @@ class MainApp extends StatelessWidget {
         ),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue).copyWith(
           surface: Colors.black,
-          ),
+        ),
         fontFamily: GoogleFonts.ptSans().fontFamily,
         useMaterial3: true,
-        ),
-        home:SplashScreen(),
-        routes : {
-        '/Bottom':(context) => const BottomNavBar(),
+      ),
+      home: const SplashScreen(),
+      routes: {
+        '/Bottom': (context) => const BottomNavBar(),
         '/home': (context) => const HomeScreen()
       },
     );
