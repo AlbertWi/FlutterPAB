@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_login/common/utils.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -9,23 +9,22 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Future<void> _logout(BuildContext context) async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.remove('isLoggedIn');
-    await prefs.remove('email');
-    Navigator.pushReplacementNamed(context, '/login');
-  }
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Flutter Login'),
+        backgroundColor: kBackgoundColor,
+        title :Image.asset(
+          "assets/logo.png",
+          height: 50,
+          width: 120,
+        ),
         actions: [
-          IconButton(onPressed: () {
-            _logout(context);
-          }, icon: const Icon(Icons.logout))
+          InkWell(child: Icon(Icons.search,color: Colors.white,))
         ],
+      ),
+      body: Center(
+        child: Text("Hi Im Home Screen"),
       ),
     );
   }

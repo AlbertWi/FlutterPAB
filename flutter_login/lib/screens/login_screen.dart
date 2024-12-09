@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 150,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16),
-                  child: Image.asset('images/flutter.png'),
+                  child: Image.asset('assets/logo.jpeg'),
 
                 ),
               ),
@@ -61,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SharedPreferences prefs = await SharedPreferences.getInstance();
                   await prefs.setBool('isLoggedIn', true);
                   await prefs.setString('email', email);
-                  Navigator.pushReplacementNamed(context, '/home');
+                  Navigator.pushReplacementNamed(context, '/Bottom');
                 }
                 else{
                   ScaffoldMessenger.of(context).showSnackBar(
