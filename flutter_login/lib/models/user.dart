@@ -1,9 +1,7 @@
 class User {
   final String name;
   final String email;
-  final String Password;
+  final String password;
 
-  User({required this.name, required this.email, required this.Password});
-
-  
+  User({required this.name, required this.email, required this.password});
 }

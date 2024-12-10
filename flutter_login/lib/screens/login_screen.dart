@@ -24,7 +24,6 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              //  TODO : 1.Logo Aplikasi
               SizedBox(
                 width: 150,
                 height: 150,
@@ -33,14 +32,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Image.asset('assets/logo.jpeg'),
                 ),
               ),
-              //  TODO :2. TextField Email
               const SizedBox(height: 16),
               TextField(
                 controller: _emailController,
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(), labelText: 'Email'),
               ),
-              //  TODO :3. TextField Password
               const SizedBox(height: 16),
               TextField(
                 controller: _passwordController,
@@ -48,7 +45,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     border: OutlineInputBorder(), labelText: 'Password'),
                 obscureText: true,
               ),
-              //  TODO :4. Tombol Login
               const SizedBox(
                 height: 16,
               ),
@@ -62,6 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           await SharedPreferences.getInstance();
                       await prefs.setBool('isLoggedIn', true);
                       await prefs.setString('email', email);
+                      // ignore: use_build_context_synchronously
                       Navigator.pushReplacementNamed(context, '/Bottom');
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -78,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool validateLogin(String email, String password) {
     for (User user in userList) {
-      if (user.email == email && user.Password == password) {
+      if (user.email == email && user.password == password) {
         return true;
       }
     }
