@@ -73,6 +73,6 @@ class ApiServices {
       log("Succes response ");
       return MovieRecommendationsModel.fromJson(jsonDecode(response.body));
     }
-    throw Exception('failed to load popilar Movies');
+    throw Exception('failed to load popular Movies');
   }
 }
