@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_login/common/utils.dart';
 import 'package:flutter_login/models/movie_recomendation.dart';
 import 'package:flutter_login/models/search_model.dart';
+import 'package:flutter_login/screens/movie_detail_screen.dart';
 import 'package:flutter_login/services/api_services.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -92,27 +93,39 @@ class _SearchScreenState extends State<SearchScreen> {
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
                               itemBuilder: (context, index) {
-                                return Container(
-                                  height: 150,
-                                  padding: const EdgeInsets.all(5),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Image.network(
-                                          "$imageUrl${data[index].posterPath}"),
-                                      const SizedBox(
-                                        width: 20,
-                                      ),
-                                      SizedBox(
-                                          width: 260,
-                                          child: Text(
-                                            data[index].title,
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                          )),
-                                    ],
+                                return InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                MovieDetailScreen(
+                                                  movieId: data[index].id,
+                                                  varHome: null,
+                                                )));
+                                  },
+                                  child: Container(
+                                    height: 150,
+                                    padding: const EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Image.network(
+                                            "$imageUrl${data[index].posterPath}"),
+                                        const SizedBox(
+                                          width: 20,
+                                        ),
+                                        SizedBox(
+                                            width: 260,
+                                            child: Text(
+                                              data[index].title,
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                            )),
+                                      ],
+                                    ),
                                   ),
                                 );
                               },

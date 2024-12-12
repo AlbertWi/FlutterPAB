@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter_login/common/utils.dart';
+import 'package:flutter_login/models/movie_detail.dart';
 import 'package:flutter_login/models/movie_model.dart';
 import 'package:flutter_login/models/movie_recomendation.dart';
 import 'package:flutter_login/models/search_model.dart';
@@ -74,5 +75,29 @@ class ApiServices {
       return MovieRecommendationsModel.fromJson(jsonDecode(response.body));
     }
     throw Exception('failed to load popular Movies');
+  }
+
+  Future<MovieDetailModel> getMovieDetail(int movieId) async {
+    endPoint = 'movie/$movieId';
+    final url = '$baseUrl$endPoint$key';
+    (url);
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      log("Succes response");
+      return MovieDetailModel.fromJson(jsonDecode(response.body));
+    }
+    throw Exception('failed to load movie details');
+  }
+
+  Future<MovieRecommendationsModel> getMovieRecommendations(int movieId) async {
+    endPoint = 'movie/$movieId/recommendations';
+    final url = '$baseUrl$endPoint$key';
+
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      log('success');
+      return MovieRecommendationsModel.fromJson(jsonDecode(response.body));
+    }
+    throw Exception('failed to load  movie details');
   }
 }

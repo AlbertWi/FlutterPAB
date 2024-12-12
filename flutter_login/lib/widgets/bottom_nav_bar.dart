@@ -26,14 +26,13 @@ class BottomNavBar extends StatelessWidget {
                 text: "Search",
               ),
               Tab(
-                icon: Icon(Icons.photo_library_outlined),
+                icon: Icon(Icons.bookmark),
                 text: "Download",
               ),
               Tab(
-                icon: Icon(Icons.home),
+                icon: Icon(Icons.person),
                 text: "Profile",
               ),
-              
             ],
             unselectedLabelColor: Color(0xFF999999),
             labelColor: Colors.white,

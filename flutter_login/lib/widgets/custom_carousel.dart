@@ -13,7 +13,7 @@ class CustomCarouselSlider extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return SizedBox(
       width: size.width,
-      height: (size.height * 0.33 < 300) ? 300 : size.height * 0.33,
+      height: (size.height * 0.20 < 200) ? 350 : size.height * 0.20,
       child: CarouselSlider.builder(
           itemCount: data.results.length,
           itemBuilder: (BuildContext context, int index, int realIndex) {
@@ -24,15 +24,15 @@ class CustomCarouselSlider extends StatelessWidget {
               children: [
                 CachedNetworkImage(imageUrl: "$imageUrl$url"),
                 const SizedBox(
-                  height: 20,
+                  height: 16,
                 ),
                 Text(data.results[index].name)
               ],
             ));
           },
           options: CarouselOptions(
-              height: (size.height * 0.33 < 300) ? 300 : size.height * 0.33,
-              aspectRatio: 16 / 9,
+              height: (size.height * 0.33 < 400) ? 400 : size.height * 0.33,
+              aspectRatio: 22 / 9,
               reverse: false,
               autoPlay: true,
               autoPlayInterval: const Duration(seconds: 2),
