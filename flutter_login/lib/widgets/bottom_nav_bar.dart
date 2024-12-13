@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_login/screens/download_screen.dart';
+import 'package:flutter_login/screens/bookmark_screen.dart';
 import 'package:flutter_login/screens/home_screen.dart';
 import 'package:flutter_login/screens/profile_screen.dart';
 import 'package:flutter_login/screens/search_screen.dart';
@@ -43,7 +43,7 @@ class BottomNavBar extends StatelessWidget {
           children: [
             HomeScreen(),
             SearchScreen(),
-            DownloadScreen(),
+            BookmarkScreen(),
             ProfileScreen()
           ],
         ),

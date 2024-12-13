@@ -101,7 +101,6 @@ class _SearchScreenState extends State<SearchScreen> {
                                             builder: (context) =>
                                                 MovieDetailScreen(
                                                   movieId: data[index].id,
-                                                  varHome: null,
                                                 )));
                                   },
                                   child: Container(
