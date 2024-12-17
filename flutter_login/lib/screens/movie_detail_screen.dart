@@ -1,82 +1,78 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/common/utils.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_login/models/movie_detail.dart';
 import 'package:flutter_login/models/movie_recomendation.dart';
 import 'package:flutter_login/services/api_services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class MovieDetailScreen extends StatefulWidget {
   final int movieId;
-  const MovieDetailScreen({
-    super.key,
-    required this.movieId,
-  });
+  const MovieDetailScreen({super.key, required this.movieId});
 
   @override
-  MovieDetailScreenState createState() => MovieDetailScreenState();
+  State<MovieDetailScreen> createState() => _MovieDetailScreenState();
 }
 
-class MovieDetailScreenState extends State<MovieDetailScreen> {
+class _MovieDetailScreenState extends State<MovieDetailScreen> {
   bool _isFavorite = false;
-  late MovieDetailModel? varHome;
-  ApiServices apiServices = ApiServices();
+  late MovieDetailModel? movieData;
   late Future<MovieDetailModel> movieDetail;
+  ApiServices apiServices = ApiServices();
+  late Future<MovieDetailModel> movieDetaill;
   late Future<MovieRecommendationsModel> movieRecommendationModel;
 
   @override
   void initState() {
     super.initState();
-    fetchInitialData();
+    _fetchMovieDetail();
   }
 
-  Future<void> _loadFavoriteStatus() async {
+  Future<void> _fetchMovieDetail() async {
+    movieDetail = apiServices.getMovieDetail(widget.movieId);
+    movieDetail.then((data) {
+      setState(() {
+        movieData = data;
+        _checkFavoriteStatus();
+      });
+    });
+  }
+
+  Future<void> _checkFavoriteStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> favoriteHomes = prefs.getStringList('favoriteHomes') ?? [];
+    List<String> favoriteMovies = prefs.getStringList('favoriteMovies') ?? [];
     setState(() {
-      if (varHome != null) {
-        _isFavorite = favoriteHomes.contains(varHome!.originalTitle);
-      }
+      _isFavorite = favoriteMovies.any((movie) {
+        final jsonData = jsonDecode(movie);
+        return jsonData['id'] == movieData!.id;
+      });
     });
   }
 
   Future<void> _toggleFavorite() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> favoriteHomes = prefs.getStringList('favoriteHomes') ?? [];
+    List<String> favoriteMovies = prefs.getStringList('favoriteMovies') ?? [];
 
     setState(() {
       if (_isFavorite) {
-        // Unbookmark process
-        favoriteHomes.remove(varHome!.originalTitle);
+        favoriteMovies.removeWhere((movie) {
+          final jsonData = jsonDecode(movie);
+          return jsonData['id'] == movieData!.id;
+        });
         _isFavorite = false;
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('${varHome!.originalTitle} removed from bookmark'),
-          ),
+          SnackBar(content: Text('${movieData!.title} removed from bookmark')),
         );
       } else {
-        favoriteHomes.add(varHome!.originalTitle);
+        favoriteMovies.add(jsonEncode(movieData!.toJson()));
         _isFavorite = true;
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('${varHome!.originalTitle} added to bookmark'),
-          ),
+          SnackBar(content: Text('${movieData!.title} added to bookmark')),
         );
       }
     });
 
-    await prefs.setStringList('favoriteHomes', favoriteHomes);
-  }
-
-  fetchInitialData() {
-    movieDetail = apiServices.getMovieDetail(widget.movieId);
-    movieRecommendationModel =
-        apiServices.getMovieRecommendations(widget.movieId);
-    movieDetail.then((movie) {
-      setState(() {
-        varHome = movie;
-        _loadFavoriteStatus();
-      });
-    });
+    await prefs.setStringList('favoriteMovies', favoriteMovies);
   }
 
   @override

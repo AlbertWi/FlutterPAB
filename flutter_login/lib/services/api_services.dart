@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:flutter_login/common/utils.dart';
 import 'package:flutter_login/models/movie_detail.dart';
 import 'package:flutter_login/models/movie_model.dart';

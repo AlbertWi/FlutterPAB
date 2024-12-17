@@ -13,7 +13,7 @@ class MovieDetailModel {
   String originalTitle;
   String overview;
   double popularity;
-  String posterPath;
+  final String posterPath;
   List<ProductionCompany> productionCompanies;
   List<ProductionCountry> productionCountries;
   DateTime releaseDate;

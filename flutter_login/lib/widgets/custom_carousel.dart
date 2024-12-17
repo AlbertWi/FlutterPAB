@@ -18,7 +18,6 @@ class CustomCarouselSlider extends StatelessWidget {
           itemCount: data.results.length,
           itemBuilder: (BuildContext context, int index, int realIndex) {
             var url = data.results[index].backdropPath.toString();
-
             return GestureDetector(
                 child: Column(
               children: [
