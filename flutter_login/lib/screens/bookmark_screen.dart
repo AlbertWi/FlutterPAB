@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
+import 'movie_detail_screen.dart'; // Import screen tujuan navigasi
 
 class BookmarkScreen extends StatefulWidget {
   const BookmarkScreen({super.key});
@@ -58,6 +59,21 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
                     fit: BoxFit.cover,
                   ),
                   title: Text(movie['title'] ?? 'No Title'),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.delete),
+                    onPressed: () => _removeFavorite(index),
+                  ),
+                  onTap: () {
+                    // Navigasi ke MovieDetailScreen dengan ID movie
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MovieDetailScreen(
+                          movieId: movie['id'], // Kirim ID film ke layar tujuan
+                        ),
+                      ),
+                    );
+                  },
                 );
               },
             ),
