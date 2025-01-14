@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/common/utils.dart';
 import 'package:flutter_login/models/movie_detail.dart';
-import 'package:flutter_login/models/movie_recomendation.dart';
 import 'package:flutter_login/services/api_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
@@ -19,8 +18,6 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   late MovieDetailModel? movieData;
   late Future<MovieDetailModel> movieDetail;
   ApiServices apiServices = ApiServices();
-  late Future<MovieDetailModel> movieDetaill;
-  late Future<MovieRecommendationsModel> movieRecommendationModel;
 
   @override
   void initState() {
@@ -178,6 +175,70 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                             color: Colors.white,
                             fontSize: 16,
                           ),
+                        ),
+                        const SizedBox(height: 30),
+                        Center(
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.red,
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 15, horizontal: 60),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            child: const Text(
+                              'Watch Now',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 30),
+                        // Review Section
+                        const Divider(color: Colors.grey),
+                        const SizedBox(height: 15),
+                        const Text(
+                          'All Ratings & Reviews',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        const Row(
+                          children: [
+                            Icon(Icons.star, color: Colors.amber),
+                            SizedBox(width: 5),
+                            Text(
+                              '4.8 Out of 5',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 15),
+                        // Dummy Reviews
+                        const ListTile(
+                          leading: CircleAvatar(
+                            child: Text('J'),
+                          ),
+                          title: Text('John Lock'),
+                          subtitle: Text('Nice Movie'),
+                          trailing: Icon(Icons.star, color: Colors.amber),
+                        ),
+                        const ListTile(
+                          leading: CircleAvatar(
+                            child: Text('E'),
+                          ),
+                          title: Text('Emy Lam'),
+                          subtitle: Text('Best movie! Need chapter 2!!!'),
+                          trailing: Icon(Icons.star, color: Colors.amber),
                         ),
                       ],
                     ),

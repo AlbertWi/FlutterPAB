@@ -17,58 +17,128 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Container(
-          constraints: const BoxConstraints(maxWidth: 300),
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 150,
-                height: 150,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
-                  child: Image.asset('assets/logo.jpeg'),
-                ),
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                controller: _emailController,
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(), labelText: 'Email'),
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                controller: _passwordController,
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(), labelText: 'Password'),
-                obscureText: true,
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              ElevatedButton(
-                  onPressed: () async {
-                    String email = _emailController.text;
-                    String password = _passwordController.text;
-
-                    if (validateLogin(email, password)) {
-                      SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
-                      await prefs.setBool('isLoggedIn', true);
-                      await prefs.setString('email', email);
-                      // ignore: use_build_context_synchronously
-                      Navigator.pushReplacementNamed(context, '/Bottom');
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text('Invalid Email Or Password')));
-                    }
-                  },
-                  child: const Text('Login'))
-            ],
+      body: Stack(
+        children: [
+          // Background Image
+          Positioned.fill(
+            child: Image.asset(
+              "assets/CINEmANIA.png", // Path ke gambar latar belakang
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
+          // Overlay dengan konten
+          Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Spasi untuk mendorong form ke bawah
+                  const SizedBox(height: 220),
+                  const SizedBox(height: 40),
+                  // Login Form
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 24),
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.7),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Column(
+                      children: [
+                        // Email Field
+                        TextField(
+                          controller: _emailController,
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Email or Phone Number',
+                            filled: true,
+                            fillColor: Colors.white,
+                          ),
+                          style: const TextStyle(
+                              color: Colors.black), // Teks input hitam
+                        ),
+                        const SizedBox(height: 16),
+                        // Password Field
+                        TextField(
+                          controller: _passwordController,
+                          obscureText: true,
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Password',
+                            filled: true,
+                            fillColor: Colors.white,
+                          ),
+                          style: const TextStyle(
+                              color: Colors.black), // Teks input hitam
+                        ),
+                        const SizedBox(height: 16),
+                        // Forgot Password dan Create Account
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                // Forgot Password Action
+                              },
+                              child: const Text(
+                                "Forgot Your Password?",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                // Create Account Action
+                              },
+                              child: const Text(
+                                "Create Account",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                        // Login Button
+                        ElevatedButton(
+                          onPressed: () async {
+                            String email = _emailController.text;
+                            String password = _passwordController.text;
+
+                            if (validateLogin(email, password)) {
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              await prefs.setBool('isLoggedIn', true);
+                              await prefs.setString('email', email);
+                              // ignore: use_build_context_synchronously
+                              Navigator.pushReplacementNamed(
+                                  context, '/Bottom');
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Invalid Email Or Password'),
+                                ),
+                              );
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: const Size(double.infinity, 48),
+                            backgroundColor: Colors.white,
+                          ),
+                          child: const Text(
+                            'LOGIN',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -79,7 +149,6 @@ class _LoginScreenState extends State<LoginScreen> {
         return true;
       }
     }
-
     return false;
   }
 }
