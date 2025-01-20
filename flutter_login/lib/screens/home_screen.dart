@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Image.asset(
-          "assets/logo.png",
+          "assets/CINEMANIA (2).png",
           height: 50,
           width: 120,
         ),
